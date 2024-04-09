@@ -16,10 +16,13 @@ from ._dataset import AbDataset
 class AbDataModule(LightningDataModule):
     csv_data_path: str
     batch_size: int = 64
-    num_workers: int = 1
+    num_workers: int = 40
 
     dataset: pd.DataFrame = field(init=False)
     alphabet: LabelEncoder = field(init=False, default=ALPHABET_AHO)
+
+    prepare_data_per_node = False
+    _log_hyperparams = False
 
     def setup(self, stage: str):
         match stage:

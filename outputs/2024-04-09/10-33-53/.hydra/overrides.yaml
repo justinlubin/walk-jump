@@ -1,0 +1,2 @@
+- model.checkpoint_path=../wj-checkpoints/data-all-sigma-0_5.ckpt
+- designs.output_csv=stuff/samples/data-all-sigma-0_5.csv
