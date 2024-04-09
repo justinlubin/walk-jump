@@ -11,3 +11,5 @@ _skbuild
 data/*.csv
 outputs
 *.swp
+checkpoints/
+wandb/
