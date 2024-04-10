@@ -10,6 +10,6 @@ if [ ! -f "$DATA_DIR" ]; then
   exit 2
 fi
 
-WANDB_MODE=offline walkjump_train data.csv_data_path="$DATA_DIR"
-mv checkpoints/last.ckpt "../wj-checkpoints/data-$1-sigma-0_5"
+WANDB_MODE=offline /usr/bin/time -o "stuff/training-times/time-$1.txt" -p walkjump_train data.csv_data_path="$DATA_DIR"
+mv checkpoints/last.ckpt "../wj-checkpoints/data-$1-sigma-0_5.ckpt"
 rm -rf checkpoints/

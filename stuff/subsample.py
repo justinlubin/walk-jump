@@ -20,6 +20,7 @@ PERCENTS = [
     0.1,
     0.33,
     0.5,
+    1,
 ]
 
 test = data[data["partition"] == "test"]
