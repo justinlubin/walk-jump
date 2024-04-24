@@ -4,7 +4,11 @@ import wandb
 from lightning.pytorch.utilities import rank_zero_only
 from omegaconf import DictConfig, OmegaConf
 
-from walkjump.cmdline.utils import instantiate_redesign_mask, instantiate_seeds, instantiate_model_for_sample_mode
+from walkjump.cmdline.utils import (
+    instantiate_redesign_mask,
+    instantiate_seeds,
+    instantiate_model_for_sample_mode,
+)
 from walkjump.sampling import walkjump
 
 
@@ -43,5 +47,5 @@ def sample(cfg: DictConfig) -> bool:
         sample_df.drop_duplicates(subset=["fv_heavy_aho", "fv_light_aho"], inplace=True)
         print(f"Writing {len(sample_df)} samples to {cfg.designs.output_csv}")
         sample_df.to_csv(cfg.designs.output_csv, index=False)
-    
+
     return True

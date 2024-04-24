@@ -46,7 +46,7 @@ for p in PERCENTS:
         ]
     ).reset_index(
         drop=True
-    ).to_csv(filename)
+    ).to_csv(filename, index=False)
 
     with open(filename, "rb") as f_in:
         with gzip.open(filename + ".gz", "wb") as f_out:

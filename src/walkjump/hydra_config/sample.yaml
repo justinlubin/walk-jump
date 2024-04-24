@@ -17,7 +17,7 @@ langevin:
 
 designs:
   output_csv: samples.csv
-  redesign_regions: null
+  redesign_regions: ["L1", "L2", "H1", "H2"]
   seeds: denovo
   num_samples: 100
   limit_seeds: 10
