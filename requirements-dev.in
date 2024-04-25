@@ -3,3 +3,4 @@ pip-tools>=6.6.2 # https://github.com/jazzband/pip-tools/issues/1617
 pre-commit
 pytest
 pytest-cov
+black
