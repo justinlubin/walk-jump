@@ -24,7 +24,7 @@ data = (
 )
 
 
-# %% Plot
+# %% wd vs. size
 
 mins = data.loc[data.groupby(["chain", "data_size"])["avg_wd"].idxmin()].reset_index()
 
@@ -39,11 +39,58 @@ c = alt.Chart(mins).encode(
             ],
         ),
     ),
-    y=alt.Y("avg_wd:Q"),
+    y=alt.Y("avg_wd"),
     color="chain",
     tooltip=["chain", "data_size", "actual_size", "sigma", "avg_wd"],
 )
-c = alt.layer(c.mark_line(), c.mark_point()).properties(width=800, height=500).interactive()
+
+c = (
+    alt.layer(
+        c.mark_line(),
+        c.mark_point(),
+    )
+    .properties(
+        width=800,
+        height=500,
+    )
+    .interactive()
+)
 
 
 c.save("stuff/plots/wd_vs_size.html")
+
+# %% wd vs. size
+
+# mins = data.loc[data.groupby(["chain", "data_size"])["avg_wd"].idxmin()].reset_index()
+
+c = alt.Chart(data).encode(
+    x=alt.X("sigma"),
+    y=alt.Y("avg_wd"),
+    color=alt.Color(
+        "data_size",
+        scale=alt.Scale(
+            type="log",
+            scheme="blues",
+        ),
+        type="ordinal",
+    ),
+    tooltip=["chain", "data_size", "actual_size", "sigma", "avg_wd"],
+)
+
+c = (
+    alt.layer(
+        c.mark_line(),
+        c.mark_point(),
+    )
+    .properties(
+        width=800,
+        height=500,
+    )
+    .facet(
+        column="chain",
+    )
+    .interactive()
+)
+
+
+c.save("stuff/plots/wd_vs_sigma.html")
