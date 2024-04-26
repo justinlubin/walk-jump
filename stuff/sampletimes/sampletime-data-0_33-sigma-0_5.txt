@@ -1,3 +1,3 @@
-real 17.10
-user 12.96
-sys 3.74
+real 49.43
+user 32.24
+sys 11.94

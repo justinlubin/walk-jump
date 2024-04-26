@@ -20,7 +20,10 @@ _ERR_MSG_UNRECOGNIZED_REGION = "Could not parse these regions to redesign: {regi
 _LOG_MSG_INSTANTIATE_MODEL = "Loading {model_type} model from {checkpoint_path}"
 
 
-def instantiate_redesign_mask(redesign_regions: Iterable[str]) -> list[int]:
+def instantiate_redesign_mask(redesign_regions: Iterable[str] | str) -> list[int]:
+    if redesign_regions == "ALL":
+        redesign_regions = RANGES_AHO.keys()
+
     unrecognized_regions = set(redesign_regions) - set(RANGES_AHO.keys())
     assert not unrecognized_regions, _ERR_MSG_UNRECOGNIZED_REGION.format(
         regions=unrecognized_regions
