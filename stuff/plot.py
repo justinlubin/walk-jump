@@ -25,6 +25,7 @@ data = (
 
 # %% Compute mins
 
+# Source: https://stackoverflow.com/a/54471056
 mins = data.loc[data.groupby(["chain", "data_size"])["avg_wd"].idxmin()].reset_index(drop=True)
 
 
