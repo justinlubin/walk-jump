@@ -59,15 +59,18 @@ prop_valids = []
 
 per_column_wds = []
 
-for chain in ["fv_heavy", "fv_light"]:
-    for filename in glob.glob(f"{PREFIX}*.csv"):
-        data_size, _, sigma = filename[len(PREFIX) : -4].split("-")
+feats_dict = {}
 
-        data_size = float(data_size.replace("_", "."))
-        sigma = float(sigma.replace("_", "."))
+for filename in sorted(glob.glob(f"{PREFIX}*.csv")):
+    data_size, _, sigma = filename[len(PREFIX) : -4].split("-")
 
-        feats = samples_to_descriptors(pd.read_csv(filename))
+    data_size = float(data_size.replace("_", "."))
+    sigma = float(sigma.replace("_", "."))
 
+    feats = samples_to_descriptors(pd.read_csv(filename))
+    feats_dict[filename] = feats
+
+    for chain in ["fv_heavy", "fv_light"]:
         per_column_wd, avg_wd, _total_wd, prop_valid = get_batch_descriptors(
             feats,
             ref_feats=ref_feats,
