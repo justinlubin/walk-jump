@@ -31,10 +31,10 @@ def samples_to_descriptors(samples, show_progress=None):
 
 # %% Load test data
 
-test_data = pd.read_csv("data/poas.csv")
+data = pd.read_csv("data/poas.csv")
 
 test_data = (
-    test_data[test_data["partition"] == "test"]
+    data[data["partition"] == "test"]
     .drop(columns={"partition"})
     .reset_index(
         drop=True,
@@ -53,6 +53,8 @@ sigmas = []
 avg_wds = []
 prop_valids = []
 
+per_column_wds = []
+
 for chain in ["fv_heavy", "fv_light"]:
     for filename in glob.glob(f"{PREFIX}*.csv"):
         data_size, _, sigma = filename[len(PREFIX) : -4].split("-")
@@ -62,7 +64,7 @@ for chain in ["fv_heavy", "fv_light"]:
 
         feats = samples_to_descriptors(pd.read_csv(filename))
 
-        _per_column_wd, avg_wd, _total_wd, prop_valid = get_batch_descriptors(
+        per_column_wd, avg_wd, _total_wd, prop_valid = get_batch_descriptors(
             feats,
             ref_feats=ref_feats,
             chain=chain,
@@ -74,14 +76,26 @@ for chain in ["fv_heavy", "fv_light"]:
         avg_wds.append(avg_wd)
         prop_valids.append(prop_valid)
 
-results = pd.DataFrame(
-    data={
-        "chain": chains,
-        "data_size": data_sizes,
-        "sigma": sigmas,
-        "avg_wd": avg_wds,
-        "prop_valid": prop_valids,
-    }
+        per_column_wds.append(
+            {k[len(chain) + 1 :]: v for k, v in per_column_wd.items()},
+        )
+
+# %%
+
+results = pd.concat(
+    [
+        pd.DataFrame(
+            data={
+                "chain": chains,
+                "data_size": data_sizes,
+                "sigma": sigmas,
+                "avg_wd": avg_wds,
+                "prop_valid": prop_valids,
+            }
+        ),
+        pd.DataFrame(per_column_wds),
+    ],
+    axis="columns",
 )
 
 results.to_csv("stuff/results.csv", index=False)
