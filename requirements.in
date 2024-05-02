@@ -11,3 +11,4 @@ scikit-learn
 wandb
 python-dotenv
 altair[all]
+matplotlib

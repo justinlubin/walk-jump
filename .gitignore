@@ -13,3 +13,6 @@ outputs
 *.swp
 checkpoints/
 wandb/
+
+stuff/plots/*.html
+stuff/plots/*.png
