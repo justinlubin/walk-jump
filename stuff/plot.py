@@ -75,14 +75,14 @@ c = (
             color=alt.Color(
                 "chain",
                 scale=alt.Scale(range=["red", "indigo"]),
-                title="Reported (Heavy?)",
+                title="Reported values",
             ),
             size=alt.value(2),
         ),
     )
     .resolve_scale(color="independent")
     .properties(
-        width=400,
+        width=600,
         height=300,
     )
     .configure_view(stroke=None)
@@ -138,7 +138,7 @@ for chain in ["Heavy", "Light"]:
         )
         .resolve_scale(color="independent")
         .properties(
-            width=400,
+            width=600,
             height=300,
         )
         .configure_view(stroke=None)
@@ -182,7 +182,7 @@ c = (
         c.mark_point(filled=True, opacity=1, size=60),
     )
     .properties(
-        width=400,
+        width=600,
         height=300,
     )
     .configure_view(stroke=None)
