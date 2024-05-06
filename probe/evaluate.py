@@ -33,9 +33,19 @@ def samples_to_descriptors(samples, show_progress=None):
     return pd.DataFrame(descriptors)
 
 
-# %% Load test data
+# %% Load data
 
 data = pd.read_csv("data/poas.csv")
+
+nontest_data = (
+    data[data["partition"] != "test"]
+    .drop(columns={"partition"})
+    .reset_index(
+        drop=True,
+    )
+)
+
+nontest_feats = samples_to_descriptors(nontest_data)
 
 test_data = (
     data[data["partition"] == "test"]
@@ -46,6 +56,36 @@ test_data = (
 )
 
 ref_feats = samples_to_descriptors(test_data)
+
+# %% Print some information about the data
+
+_, heavy_avg_wd, _, heavy_prop_valid = get_batch_descriptors(
+    nontest_feats,
+    ref_feats=ref_feats,
+    chain="fv_heavy",
+)
+
+_, light_avg_wd, _, light_prop_valid = get_batch_descriptors(
+    nontest_feats,
+    ref_feats=ref_feats,
+    chain="fv_light",
+)
+
+print(
+    "Avg. Wasserstein Distance between Train and Test (Heavy Chain):",
+    heavy_avg_wd,
+)
+
+print(
+    "Avg. Wasserstein Distance between Train and Test (Light Chain):",
+    light_avg_wd,
+)
+
+print(
+    "Prop valid:",
+    heavy_prop_valid,
+    light_prop_valid,
+)
 
 # %% Load samples and evaluate them
 
@@ -86,8 +126,6 @@ for filename in sorted(glob.glob(f"{PREFIX}*.csv")):
         per_column_wds.append(
             {k[len(chain) + 1 :]: v for k, v in per_column_wd.items()},
         )
-
-# %%
 
 results = pd.concat(
     [
