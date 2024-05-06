@@ -12,7 +12,7 @@ N = len(poas[poas["partition"] != "test"])
 
 # %% Load data
 
-data = pd.read_csv("stuff/results.csv")
+data = pd.read_csv("probe/results.csv")
 data["log10_data_size"] = np.log10(data["data_size"])
 data["actual_size"] = (data["data_size"] * N).round()
 data["chain"] = data["chain"].str[3:].str.title()
@@ -90,8 +90,8 @@ c = (
 )
 
 
-c.save("stuff/plots/wd_vs_size.html")
-c.save("stuff/plots/wd_vs_size.png", ppi=300)
+c.save("probe/plots/wd_vs_size.html")
+c.save("probe/plots/wd_vs_size.png", ppi=300)
 
 
 # %% Best wd vs. sigma
@@ -145,8 +145,8 @@ for chain in ["Heavy", "Light"]:
         .interactive()
     )
 
-    c.save(f"stuff/plots/wd_vs_sigma_{chain}.html")
-    c.save(f"stuff/plots/wd_vs_sigma_{chain}.png", ppi=300)
+    c.save(f"probe/plots/wd_vs_sigma_{chain}.html")
+    c.save(f"probe/plots/wd_vs_sigma_{chain}.png", ppi=300)
 
 # %% sigma vs. size
 
@@ -190,5 +190,5 @@ c = (
 )
 
 
-c.save("stuff/plots/sigma_vs_size.html")
-c.save("stuff/plots/sigma_vs_size.png", ppi=300)
+c.save("probe/plots/sigma_vs_size.html")
+c.save("probe/plots/sigma_vs_size.png", ppi=300)

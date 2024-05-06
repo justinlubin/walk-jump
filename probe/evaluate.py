@@ -49,7 +49,7 @@ ref_feats = samples_to_descriptors(test_data)
 
 # %% Load samples and evaluate them
 
-PREFIX = "stuff/samples/data-"
+PREFIX = "probe/samples/data-"
 
 chains = []
 data_sizes = []
@@ -105,4 +105,4 @@ results = pd.concat(
     axis="columns",
 )
 
-results.to_csv("stuff/results.csv", index=False)
+results.to_csv("probe/results.csv", index=False)

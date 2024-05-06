@@ -11,7 +11,7 @@ if [ ! -f "$DATA_FILE" ]; then
 fi
 
 WANDB_MODE=offline \
-  /usr/bin/time -p -o "stuff/traintimes/traintime-data-$1-sigma-$2_$3.txt" \
+  /usr/bin/time -p -o "probe/traintimes/traintime-data-$1-sigma-$2_$3.txt" \
     walkjump_train \
       data.csv_data_path="$DATA_FILE" \
       model.model_cfg.hyperparameters.sigma="$2.$3"
